@@ -1,10 +1,27 @@
 package com.mfw.rockpaperscissors;
 
 import java.util.Arrays;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+    public static void main(String[] args) {
+        RockPaperScissors rps = new RockPaperScissors();
+        String input = "";
+
+        System.out.println("=== Rock Paper Scissors ===");
+        System.out.println("Welcome to Rock Paper Scissors, let's get started.");
+        System.out.println();
+
+        while (!input.equalsIgnoreCase("exit")) {
+            System.out.println("Make a move! (rock/paper/scissors), alternativly type 'exit' to quit.");
+            System.out.print("Your move: ");
+            input = readGameOption();
+
+            rps.start(input);
+        }
+    }
+
+    /* TEST
     private static final String[] gameChoices = {"r", "p", "s"};
     private static final String[] menuChoices = {"exit", ""};
 
@@ -27,8 +44,10 @@ public class Main {
             input = readString(menuChoices);
         }
     }
+     */
 
-    private static String readString(String[] possibleChoices) {
+    private static String readGameOption() {
+        String[] possibleChoices = {"rock", "paper", "scissors", "exit"};
         Scanner scanner = new Scanner(System.in);
         boolean isValid = false;
         String result = "";
