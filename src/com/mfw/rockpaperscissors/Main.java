@@ -37,7 +37,8 @@ public class Main {
             result = scanner.nextLine();
 
             if (!Arrays.asList(possibleChoices).contains(result.toLowerCase())) {
-                System.out.print("Invalid input, try again: ");
+                System.err.println("Invalid input!");
+                System.out.print("Try again: ");
             } else {
                 isValid = true;
             }
