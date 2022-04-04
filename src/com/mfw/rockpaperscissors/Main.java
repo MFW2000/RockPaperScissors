@@ -9,6 +9,7 @@ public class Main {
     private static final String[] GAME_CHOICES = {"exit", ""};
 
     public static void main(String[] args) {
+        RockPaperScissors rps = new RockPaperScissors();
         String input = "";
 
         clearConsole(); // Clear first cmd line
@@ -23,13 +24,13 @@ public class Main {
             input = readOptionString(RPS_CHOICES);
 
             try {
-                RockPaperScissors.playRPS(input);
+                rps.playRPS(input);
             } catch (RockPaperScissorsException e) {
                 e.printStackTrace();
             }
 
             System.out.println();
-
+            System.out.println(rps);
             System.out.print("Press enter to play again or type 'exit' to quit: ");
             input = readOptionString(GAME_CHOICES);
 

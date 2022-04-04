@@ -3,13 +3,19 @@ package com.mfw.rockpaperscissors;
 import java.util.Random;
 
 public class RockPaperScissors {
-    // TODO: Add win counter and create getter for it
+    private int totalWins;
+    private int winStreak;
+
+    public RockPaperScissors() {
+        totalWins = 0;
+        winStreak = 0;
+    }
 
     /**
      * Play a game of rock paper scissor
      * @param playerMove chosen move
      */
-    public static void playRPS(String playerMove) throws RockPaperScissorsException {
+    public void playRPS(String playerMove) throws RockPaperScissorsException {
         playerMove = playerMove.toLowerCase();
 
         if (!playerMove.equals("rock") && !playerMove.equals("paper") && !playerMove.equals("scissors")) {
@@ -27,8 +33,16 @@ public class RockPaperScissors {
             System.out.println("It's a draw!");
         } else if (isWinner(playerMove, opponentMove)) {
             System.out.println("You win!");
+            totalWins++;
+            winStreak++;
         } else {
             System.out.println("You lose!");
+
+            if (totalWins > 0) {
+                System.out.println("Win streak reset!");
+            }
+
+            winStreak = 0;
         }
     }
 
@@ -63,5 +77,10 @@ public class RockPaperScissors {
         } else {
             return opponentMove.equals("paper");
         }
+    }
+
+    @Override
+    public String toString() {
+        return ("Total wins: " + totalWins + ". Win streak: " + winStreak);
     }
 }
