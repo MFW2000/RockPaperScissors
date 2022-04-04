@@ -1,53 +1,48 @@
 package com.mfw.rockpaperscissors;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        RockPaperScissors rps = new RockPaperScissors();
-        String input = "";
-
-        System.out.println("=== Rock Paper Scissors ===");
-        System.out.println("Welcome to Rock Paper Scissors, let's get started.");
-        System.out.println();
-
-        while (!input.equalsIgnoreCase("exit")) {
-            System.out.println("Make a move! (rock/paper/scissors), alternativly type 'exit' to quit.");
-            System.out.print("Your move: ");
-            input = readGameOption();
-
-            rps.start(input);
-        }
-    }
-
-    /* TEST
-    private static final String[] gameChoices = {"r", "p", "s"};
-    private static final String[] menuChoices = {"exit", ""};
+    private static final String[] RPS_CHOICES = {"rock", "paper", "scissors", "exit"};
+    private static final String[] GAME_CHOICES = {"exit", ""};
 
     public static void main(String[] args) {
-        Random random = new Random();
-        String[] results = {"You win!", "You lose!", "It's a draw!"};
         String input = "";
 
-        System.out.println("Welcome to Rock Paper Scissors.");
+        clearConsole(); // Clear first cmd line
 
+        // Game loop
         while (!input.equalsIgnoreCase("exit")) {
-            System.out.print("Rock, Paper, Scissors? - r, p, s: ");
-            readString(gameChoices);
-
-            int outcome = random.nextInt(results.length);
-            System.out.println(results[outcome]);
+            System.out.println("=== Rock Paper Scissors ===");
+            System.out.println("Welcome to Rock Paper Scissors, let's begin.");
             System.out.println();
 
-            System.out.print("Leave empty to play again or type 'exit' to quit: ");
-            input = readString(menuChoices);
+            System.out.print("Make a move! (rock/paper/scissors): ");
+            input = readOptionString(RPS_CHOICES);
+
+            try {
+                RockPaperScissors.playRPS(input);
+            } catch (RockPaperScissorsException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println();
+
+            System.out.print("Press enter to play again or type 'exit' to quit: ");
+            input = readOptionString(GAME_CHOICES);
+
+            clearConsole();
         }
     }
-     */
 
-    private static String readGameOption() {
-        String[] possibleChoices = {"rock", "paper", "scissors", "exit"};
+    /**
+     * Reads user input and checks if the input is in the given array of choices.
+     * @param possibleChoices array of possible choices
+     * @return the user input
+     */
+    private static String readOptionString(String[] possibleChoices) {
         Scanner scanner = new Scanner(System.in);
         boolean isValid = false;
         String result = "";
@@ -64,5 +59,20 @@ public class Main {
         }
 
         return result;
+    }
+
+    /**
+     * Clears Java console
+     */
+    private static void clearConsole() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                Runtime.getRuntime().exec("clear");
+            }
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }
