@@ -5,10 +5,19 @@ import java.util.Random;
 public class RockPaperScissors {
     private int totalWins;
     private int winStreak;
+    private String opponentMove;
 
     public RockPaperScissors() {
         totalWins = 0;
         winStreak = 0;
+    }
+
+    public int getTotalWins() {
+        return totalWins;
+    }
+
+    public String getOpponentMove() {
+        return opponentMove;
     }
 
     /**
@@ -22,10 +31,7 @@ public class RockPaperScissors {
             throw new RockPaperScissorsException("Invalid input! Only 'rock', 'paper' and 'scissor' is valid input");
         }
 
-        Random random = new Random();
-        int opponentChoice = random.nextInt(3);
-        String opponentMove = getOpponentMove(opponentChoice);
-
+        opponentMove = generateOpponentMove();
         System.out.println("Your opponent chose: " + opponentMove);
         System.out.println();
 
@@ -47,14 +53,14 @@ public class RockPaperScissors {
     }
 
     /**
-     * Get the move of the opponent
-     * @param opponentChoice randomized choice of the opponent
+     * Get the move of the opponent by ranomizing the move
      * @return opponent move
      */
-    private static String getOpponentMove(int opponentChoice) {
+    private static String generateOpponentMove() {
         String opponentMove = "";
 
-        switch (opponentChoice) {
+        // Get the opponent move from a randomized int from the bound of 3
+        switch (new Random().nextInt(3)) {
             case 0 -> opponentMove = "rock";
             case 1 -> opponentMove = "paper";
             case 2 -> opponentMove = "scissors";

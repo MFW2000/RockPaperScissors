@@ -1,8 +1,6 @@
 package com.mfw.rockpaperscissors;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Scanner;
+import com.mfw.javalibrary.JavaLibrary;
 
 public class Main {
     private static final String[] RPS_CHOICES = {"rock", "paper", "scissors", "exit"};
@@ -12,7 +10,7 @@ public class Main {
         RockPaperScissors rps = new RockPaperScissors();
         String input = "";
 
-        clearConsole(); // Clear first cmd line
+        JavaLibrary.clearConsole(); // Clear first cmd line
 
         // Game loop
         while (!input.equalsIgnoreCase("exit")) {
@@ -21,7 +19,7 @@ public class Main {
             System.out.println();
 
             System.out.print("Make a move! (rock/paper/scissors): ");
-            input = readOptionString(RPS_CHOICES);
+            input = JavaLibrary.readOptionString(RPS_CHOICES);
 
             try {
                 rps.playRPS(input);
@@ -32,48 +30,9 @@ public class Main {
             System.out.println();
             System.out.println(rps);
             System.out.print("Press enter to play again or type 'exit' to quit: ");
-            input = readOptionString(GAME_CHOICES);
+            input = JavaLibrary.readOptionString(GAME_CHOICES);
 
-            clearConsole();
-        }
-    }
-
-    /**
-     * Reads user input and checks if the input is in the given array of choices.
-     * @param possibleChoices array of possible choices
-     * @return the user input
-     */
-    private static String readOptionString(String[] possibleChoices) {
-        Scanner scanner = new Scanner(System.in);
-        boolean isValid = false;
-        String result = "";
-
-        while (!isValid) {
-            result = scanner.nextLine();
-
-            if (!Arrays.asList(possibleChoices).contains(result.toLowerCase())) {
-                System.err.println("Invalid input!");
-                System.out.print("Try again: ");
-            } else {
-                isValid = true;
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * Clears Java console
-     */
-    private static void clearConsole() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                Runtime.getRuntime().exec("clear");
-            }
-        } catch (InterruptedException | IOException e) {
-            e.printStackTrace();
+            JavaLibrary.clearConsole();
         }
     }
 }

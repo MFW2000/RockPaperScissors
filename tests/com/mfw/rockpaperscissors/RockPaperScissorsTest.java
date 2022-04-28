@@ -15,6 +15,15 @@ class RockPaperScissorsTest {
 
     @Test
     void testValidInputParameter() {
-        assertThrowsExactly(RockPaperScissorsException.class, () -> rps.playRPS("Test"));
+        assertThrowsExactly(RockPaperScissorsException.class, () -> rps.playRPS("UnvalidInput"));
+    }
+
+    @Test
+    void testRPSGameLogic() throws RockPaperScissorsException {
+        rps.playRPS("rock");
+
+        if (rps.getOpponentMove().equals("paper")) {
+            assertEquals(0, rps.getTotalWins());
+        }
     }
 }
