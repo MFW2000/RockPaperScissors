@@ -1,49 +1,38 @@
 package com.mfw.rockpaperscissors;
 
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import com.mfw.javalibrary.JavaLibrary;
 
 public class Main {
-    private static final String[] gameChoices = {"r", "p", "s"};
-    private static final String[] menuChoices = {"exit", ""};
+    private static final String[] RPS_CHOICES = {"rock", "paper", "scissors", "exit"};
+    private static final String[] GAME_CHOICES = {"exit", ""};
 
     public static void main(String[] args) {
-        Random random = new Random();
-        String[] results = {"You win!", "You lose!", "It's a draw!"};
+        RockPaperScissors rps = new RockPaperScissors();
         String input = "";
 
-        System.out.println("Welcome to Rock Paper Scissors.");
+        JavaLibrary.clearConsole(); // Clear first cmd line
 
+        // Game loop
         while (!input.equalsIgnoreCase("exit")) {
-            System.out.print("Rock, Paper, Scissors? - r, p, s: ");
-            readString(gameChoices);
-
-            int outcome = random.nextInt(results.length);
-            System.out.println(results[outcome]);
+            System.out.println("=== Rock Paper Scissors ===");
+            System.out.println("Welcome to Rock Paper Scissors, let's begin.");
             System.out.println();
 
-            System.out.print("Leave empty to play again or type 'exit' to quit: ");
-            input = readString(menuChoices);
-        }
-    }
+            System.out.print("Make a move! (rock/paper/scissors): ");
+            input = JavaLibrary.readOptionString(RPS_CHOICES);
 
-    private static String readString(String[] possibleChoices) {
-        Scanner scanner = new Scanner(System.in);
-        boolean isValid = false;
-        String result = "";
-
-        while (!isValid) {
-            result = scanner.nextLine();
-
-            if (!Arrays.asList(possibleChoices).contains(result.toLowerCase())) {
-                System.err.println("Invalid input!");
-                System.out.print("Try again: ");
-            } else {
-                isValid = true;
+            try {
+                rps.playRPS(input);
+            } catch (RockPaperScissorsException e) {
+                e.printStackTrace();
             }
-        }
 
-        return result;
+            System.out.println();
+            System.out.println(rps);
+            System.out.print("Press enter to play again or type 'exit' to quit: ");
+            input = JavaLibrary.readOptionString(GAME_CHOICES);
+
+            JavaLibrary.clearConsole();
+        }
     }
 }

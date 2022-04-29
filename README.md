@@ -1,2 +1,2 @@
 # Rock Paper Scissors
-Rock Paper Scissors game. Currently this game is memetic in nature ;)
+Java implementation of a Rock Paper Scissors game.
