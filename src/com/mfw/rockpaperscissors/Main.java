@@ -1,6 +1,6 @@
 package com.mfw.rockpaperscissors;
 
-import com.mfw.javalibrary.JavaLibrary;
+import com.mfw.javalibrary.*;
 
 public class Main {
     private static final String[] RPS_CHOICES = {"rock", "paper", "scissors", "exit"};
@@ -10,7 +10,7 @@ public class Main {
         RockPaperScissors rps = new RockPaperScissors();
         String input = "";
 
-        JavaLibrary.clearConsole(); // Clear first cmd line
+        Console.clearConsole(); // Clear first cmd line
 
         // Game loop
         while (!input.equalsIgnoreCase("exit")) {
@@ -19,7 +19,7 @@ public class Main {
             System.out.println();
 
             System.out.print("Make a move! (rock/paper/scissors): ");
-            input = JavaLibrary.readOptionString(RPS_CHOICES);
+            input = IO.readString(RPS_CHOICES);
 
             try {
                 rps.playRPS(input);
@@ -30,9 +30,9 @@ public class Main {
             System.out.println();
             System.out.println(rps);
             System.out.print("Press enter to play again or type 'exit' to quit: ");
-            input = JavaLibrary.readOptionString(GAME_CHOICES);
+            input = IO.readString(GAME_CHOICES);
 
-            JavaLibrary.clearConsole();
+            Console.clearConsole();
         }
     }
 }
